@@ -32,6 +32,16 @@
       var DataArr = [];
       PDFJS.workerSrc = "";
 
+      Array.prototype.diff = function (arr2) {
+        let ret = [];
+        for (var i in this) {
+          if (arr2.indexOf(this[i]) > -1) {
+            ret.push(this[i]);
+          }
+        }
+        return ret;
+      };
+
       function ExtractNumbers() {
         let output3 = document.getElementById("output").textContent;
         let output4 = document.getElementById("output2").textContent;
@@ -39,6 +49,7 @@
         let phone2 = output4.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
         console.log(phone1);
         console.log(phone2);
+        console.log(phone1.diff(phone2));
       }
 
       function ExtractText1() {
