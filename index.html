@@ -25,10 +25,9 @@
     <hr />
     <br />
     <div id="output2"></div>
-    <!-- <div id="output3">(801) 916-6611 (801) 916-2712</div> -->
 
     <script>
-      var datass = "";
+      var data = "";
       var DataArr = [];
       PDFJS.workerSrc = "";
 
@@ -43,14 +42,39 @@
       };
 
       function ExtractNumbers() {
-        let output3 = document.getElementById("output").textContent;
+        var output3 = document.getElementById("output").textContent;
         let output4 = document.getElementById("output2").textContent;
-        let phone1 = output3.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
-        let phone2 = output4.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
-        console.log(phone1);
-        console.log(phone2);
-        console.log(phone1.diff(phone2));
+        const phone1 = output3.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
+        const phone2 = output4.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
+        const mi = "mi";
+        var regex1 = /mi/g,
+          result1,
+          indicesMi = [];
+        while ((result1 = regex1.exec(output3))) {
+          indicesMi.push(result1.index);
+        }
+        console.log(indicesMi);
+        const average = "average";
+        var regex2 = /average/g,
+          result2,
+          indicesAv = [];
+        while ((result2 = regex2.exec(output3))) {
+          indicesAv.push(result2.index);
+        }
+        console.log(indicesAv);
+        // console.log(phone1);
+        // console.log(phone2);
+        const matches = phone1.diff(phone2);
+        console.log(matches);
+        let numberIndex = [];
+        matches.forEach((selection) => console.log(output3.indexOf(selection)));
+        console.log(matches[0]);
+        console.log(output3.substring(1619 + 3, 1743 + 7));
       }
+
+      // find phone number in output then
+      // 5.8 mi "Avalon West Health & Rehabilitation 6246 South Redwood Road Salt Lake City, UT 84123 (801) 969-1420 Overall rating Below average"
+      // start after space after mi. end at average.
 
       function ExtractText1() {
         var input = document.getElementById("file-id");
@@ -101,7 +125,7 @@
       }
 
       function getPageText(pageNum, PDFDocumentInstance) {
-        // Return a Promise that is solved once the text of the page is retrieven
+        // Return a Promise that is solved once the text of the page is retrieved
         return new Promise(function (resolve, reject) {
           PDFDocumentInstance.getPage(pageNum).then(function (pdfPage) {
             // The main trick to obtain the text of the PDF page, use the getTextContent method
@@ -116,7 +140,7 @@
                 finalString += item.str + " ";
               }
 
-              // Solve promise with the text retrieven from the page
+              // Solve promise with the text retrieved from the page
               resolve(finalString);
             });
           });
@@ -142,11 +166,11 @@
             Promise.all(pagesPromises).then(function (pagesText) {
               // Display text of all the pages in the console
               // e.g ["Text content page 1", "Text content page 2", "Text content page 3" ... ]
-              console.log(pagesText); // representing every single page of PDF Document by array indexing
-              console.log(pagesText.length);
+              // console.log(pagesText); // representing every single page of PDF Document by array indexing
+              // console.log(pagesText.length);
               var outputStr = "";
               for (var pageNum = 0; pageNum < pagesText.length; pageNum++) {
-                console.log(pagesText[pageNum]);
+                // console.log(pagesText[pageNum]);
                 outputStr = "";
                 outputStr =
                   "<br/><br/>Page " + (pageNum + 1) + " contents <br/> <br/>";
@@ -183,11 +207,11 @@
             Promise.all(pagesPromises).then(function (pagesText) {
               // Display text of all the pages in the console
               // e.g ["Text content page 1", "Text content page 2", "Text content page 3" ... ]
-              console.log(pagesText); // representing every single page of PDF Document by array indexing
-              console.log(pagesText.length);
+              // console.log(pagesText); // representing every single page of PDF Document by array indexing
+              // console.log(pagesText.length);
               var outputStr = "";
               for (var pageNum = 0; pageNum < pagesText.length; pageNum++) {
-                console.log(pagesText[pageNum]);
+                // console.log(pagesText[pageNum]);
                 outputStr = "";
                 outputStr =
                   "<br/><br/>Page " + (pageNum + 1) + " contents <br/> <br/>";

@@ -1,4 +1,4 @@
-var datass = "";
+var data = "";
 var DataArr = [];
 PDFJS.workerSrc = "";
 
