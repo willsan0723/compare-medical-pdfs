@@ -53,7 +53,7 @@
         while ((result1 = regex1.exec(output3))) {
           indicesMi.push(result1.index);
         }
-        console.log(indicesMi);
+        // console.log(indicesMi);
         const average = "average";
         var regex2 = /average/g,
           result2,
@@ -61,15 +61,44 @@
         while ((result2 = regex2.exec(output3))) {
           indicesAv.push(result2.index);
         }
-        console.log(indicesAv);
+        // console.log(indicesAv);
         // console.log(phone1);
         // console.log(phone2);
         const matches = phone1.diff(phone2);
         console.log(matches);
-        let numberIndex = [];
-        matches.forEach((selection) => console.log(output3.indexOf(selection)));
+
+        function getClosestMi(myArray, myValue) {
+          var i = 0;
+
+          while (myArray[++i] < myValue);
+
+          return myArray[--i];
+        }
+
+        function getClosestAv(myArray, myValue) {
+          var i = 0;
+
+          while (myArray[++i] < myValue);
+
+          return myArray[i];
+        }
+
+        console.log(getClosestMi(indicesMi, output3.indexOf(matches[0])));
+        console.log(getClosestAv(indicesAv, output3.indexOf(matches[0])));
+
         console.log(matches[0]);
         console.log(output3.substring(1619 + 3, 1743 + 7));
+
+        matches.forEach((selection) =>
+          console.log(
+            output3.substring(
+              getClosestMi(
+                (indicesMi, output3.indexOf(matches[selection])) + 3
+              ),
+              getClosestAv((indicesAv, output3.indexOf(matches[selection])) + 7)
+            )
+          )
+        );
       }
 
       // find phone number in output then
