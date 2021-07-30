@@ -20,11 +20,12 @@
     <button onclick="ExtractNumbers();">Extract Numbers</button>
 
     <!-- a container for the output -->
-    <div id="output"></div>
+    <div id="results"></div>
+    <div id="output" style="visibility: hidden"></div>
     <br />
     <hr />
     <br />
-    <div id="output2"></div>
+    <div id="output2" style="visibility: hidden"></div>
 
     <script>
       var data = "";
@@ -42,8 +43,9 @@
       };
 
       function ExtractNumbers() {
-        var output3 = document.getElementById("output").textContent;
+        let output3 = document.getElementById("output").textContent;
         let output4 = document.getElementById("output2").textContent;
+        let results = document.getElementById("results");
         const phone1 = output3.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
         const phone2 = output4.match(/(\(\d\d\d\)) (\d\d\d)\-(\d\d\d\d)/g);
         const mi = "mi";
@@ -83,21 +85,20 @@
           return myArray[i];
         }
 
-        console.log(getClosestMi(indicesMi, output3.indexOf(matches[0])));
-        console.log(getClosestAv(indicesAv, output3.indexOf(matches[0])));
+        // console.log(getClosestMi(indicesMi, output3.indexOf(matches[0])));
+        // console.log(getClosestAv(indicesAv, output3.indexOf(matches[0])));
 
-        console.log(matches[0]);
-        console.log(output3.substring(1619 + 3, 1743 + 7));
+        // console.log(matches[0]);
+        // console.log(output3.substring(1619 + 3, 1743 + 7));
 
-        matches.forEach((selection) =>
-          console.log(
-            output3.substring(
-              getClosestMi(
-                (indicesMi, output3.indexOf(matches[selection])) + 3
-              ),
-              getClosestAv((indicesAv, output3.indexOf(matches[selection])) + 7)
-            )
-          )
+        matches.forEach(
+          (selection) =>
+            (results.innerHTML +=
+              "<p>" +
+              output3.substring(
+                getClosestMi(indicesMi, output3.indexOf(selection)) + 3,
+                getClosestAv(indicesAv, output3.indexOf(selection)) + 7
+              )) + "</p>"
         );
       }
 
